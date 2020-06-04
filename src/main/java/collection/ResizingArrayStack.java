@@ -16,7 +16,7 @@ public class ResizingArrayStack<E> implements Iterable<E> {
         stack.push(0);
         stack.push(1);
         stack.push(2);
-        // 测试foreach
+        // 测试foreach，因为实现了Iterable接口
         for (Integer e : stack) {
             System.out.print(e + " ");
         }
