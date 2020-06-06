@@ -61,26 +61,42 @@ public interface ST<Key extends Comparable<Key>, V> {
     /**
      * 删除最小的键
      */
-    void deleteMin();
+    default void deleteMin() {
+        delete(min());
+    }
 
     /**
      * 删除最大的键
      */
-    void deleteMax();
+    default void deleteMax() {
+        delete(max());
+    }
 
     /**
      * [lo..hi]之间键的数量
+     *
      * @param lo
      * @param hi
      * @return
      */
-    int size(Key lo, Key hi);
+    default int size(Key lo, Key hi) {
+        if (hi.compareTo(lo) < 0) {
+            return 0;
+        }else if (contains(hi)) {
+            return rank(hi) - rank(lo) + 1;
+        }else {
+            return rank(hi) - rank(lo);
+        }
+    }
 
     /**
      * 表中所有键的集合
+     *
      * @return
      */
-    Iterable<Key> keys();
+    default Iterable<Key> keys() {
+        return keys(min(), max());
+    }
 
     /**
      * [lo..hi]之间的所有键，已排序
