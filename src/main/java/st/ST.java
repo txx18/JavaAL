@@ -6,69 +6,73 @@ package st;
  * @author Shane Tang
  * @create 2020-06-04 21:44
  */
-public interface ST<Key extends Comparable<Key>, V> {
+public abstract class ST<Key extends Comparable<Key>, V> {
 
-    void put(Key key, V v);
+    public int size;
 
-    V get(Key key);
+    abstract void put(Key key, V v);
 
-    default void delete(Key key) {
+    abstract V get(Key key);
+
+    void delete(Key key) {
         put(key, null);
     }
 
-    default boolean contains(Key key) {
+    boolean contains(Key key) {
         return get(key) != null;
     }
 
-    default boolean isEmpty() {
+    boolean isEmpty() {
         return size() == 0;
     }
 
-    int size();
+    int size() {
+        return size;
+    }
 
-    Key min();
+    abstract Key min();
 
-    Key max();
+    abstract Key max();
 
     /**
      * <=k的最大键
      * @param key
      * @return
      */
-    Key floor(Key key);
+    abstract Key floor(Key key);
 
     /**
      * >=key的最小键
      * @param key
      * @return
      */
-    Key ceiling(Key key);
+    abstract Key ceiling(Key key);
 
     /**
      * 小于key的键的数量
      * @param key
      * @return
      */
-    int rank(Key key);
+    abstract int rank(Key key);
 
     /**
      * 排名为k的的键
      * @param k
      * @return
      */
-    Key select(int k);
+    abstract Key select(int k);
 
     /**
      * 删除最小的键
      */
-    default void deleteMin() {
+    void deleteMin() {
         delete(min());
     }
 
     /**
      * 删除最大的键
      */
-    default void deleteMax() {
+    void deleteMax() {
         delete(max());
     }
 
@@ -79,7 +83,7 @@ public interface ST<Key extends Comparable<Key>, V> {
      * @param hi
      * @return
      */
-    default int size(Key lo, Key hi) {
+    int size(Key lo, Key hi) {
         if (hi.compareTo(lo) < 0) {
             return 0;
         }else if (contains(hi)) {
@@ -94,7 +98,7 @@ public interface ST<Key extends Comparable<Key>, V> {
      *
      * @return
      */
-    default Iterable<Key> keys() {
+    Iterable<Key> keys() {
         return keys(min(), max());
     }
 
@@ -104,5 +108,5 @@ public interface ST<Key extends Comparable<Key>, V> {
      * @param hi
      * @return
      */
-    Iterable<Key> keys(Key lo, Key hi);
+    abstract Iterable<Key> keys(Key lo, Key hi);
 }

@@ -8,7 +8,7 @@ package sort.generic;
  * @version V1.0
  * @create 2020-04-07 15:45
  */
-public class SelectionSort<T extends Comparable<T>> extends Sort<T> {
+public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
 
     @Override
     public void sort(T[] a) {

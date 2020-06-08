@@ -7,7 +7,7 @@ import java.util.Comparator;
  * @version V1.0
  * @create 2020-04-07 15:41
  */
-public abstract class Sort<T extends Comparable<T>> {
+public abstract class AbstractSort<T extends Comparable<T>> {
 
     public abstract void sort(T[] a);
 
