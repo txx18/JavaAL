@@ -3,6 +3,7 @@ package collection;
 import java.util.Iterator;
 
 /**
+ * 实现Iterable接口的类，都可以foreach
  * @author Shane Tang
  * @version V1.0
  * @create 2020-04-05 16:56
@@ -78,7 +79,8 @@ public class ResizingArrayStack<E> implements Iterable<E> {
     }
 
     /**
-     * 后进先出Iterator的实现类
+     * 实现Iterator接口的类
+     * 需要实现hasNext()和next()
      */
     private class ReverseArrayIterator implements Iterator<E> {
         /**
@@ -86,6 +88,10 @@ public class ResizingArrayStack<E> implements Iterable<E> {
          */
         private int i = size;
 
+        /**
+         *
+         * @return
+         */
         @Override
         public boolean hasNext() {
             return i > 0;
