@@ -6,13 +6,13 @@ package st;
  * @author Shane Tang
  * @create 2020-06-04 21:44
  */
-public abstract class ST<Key extends Comparable<Key>, V> {
+public abstract class AbstractST<Key extends Comparable<Key>, Value> {
 
     public int size;
 
-    abstract void put(Key key, V v);
+    abstract void put(Key key, Value val);
 
-    abstract V get(Key key);
+    abstract Value get(Key key);
 
     void delete(Key key) {
         put(key, null);
