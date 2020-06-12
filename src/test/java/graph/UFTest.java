@@ -1,3 +1,5 @@
+package graph;
+
 import graph.UF;
 import graph.UFQuickFindImpl;
 import graph.UFQuickUnionImpl;

@@ -1,6 +1,4 @@
-package st;
-
-import com.sun.xml.internal.bind.marshaller.NoEscapeHandler;
+package search.st;
 
 import java.io.File;
 import java.io.FileReader;
@@ -10,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 算法3.1 顺序查找（基于无序链表）
  * @author Shane Tang
  * @create 2020-06-10 8:55
  */
@@ -58,7 +57,7 @@ public class SquentialST<Key extends Comparable<Key>, Value> extends AbstractST<
     }
 
     @Override
-    void put(Key key, Value val) {
+    public void put(Key key, Value val) {
         if (head == null) {
             head = new Node<>(key, val);
             return;
@@ -84,7 +83,7 @@ public class SquentialST<Key extends Comparable<Key>, Value> extends AbstractST<
     }
 
     @Override
-    Value get(Key key) {
+    public Value get(Key key) {
         Node<Key, Value> cur = head;
         if (cur == null) {
             return null;
@@ -104,7 +103,7 @@ public class SquentialST<Key extends Comparable<Key>, Value> extends AbstractST<
     }
 
     @Override
-    Key min() {
+    public Key min() {
         if (head == null) {
             return null;
         }
@@ -112,7 +111,7 @@ public class SquentialST<Key extends Comparable<Key>, Value> extends AbstractST<
     }
 
     @Override
-    Key max() {
+    public Key max() {
         if (head == null) {
             return null;
         }
@@ -124,35 +123,35 @@ public class SquentialST<Key extends Comparable<Key>, Value> extends AbstractST<
     }
 
     @Override
-    Key floor(Key key) {
+    public Key floor(Key key) {
         return null;
     }
 
     @Override
-    Key ceiling(Key key) {
+    public Key ceiling(Key key) {
         return null;
     }
 
     @Override
-    int rank(Key key) {
+    public int rank(Key key) {
         return 0;
     }
 
     @Override
-    Key select(int k) {
+    public Key select(int k) {
         return null;
     }
 
     /**
      * 第一个lo和最后一个hi之间的keys
      * 但是这里给的参数是key，ST的key可以重复，指代本身是不明确的，默认为headNode到tailNode
-     * 实际上
+     * 实际上是简单符号表的实现
      * @param lo
      * @param hi
      * @return
      */
     @Override
-    Iterable<Key> keys(Key lo, Key hi) {
+    public Iterable<Key> keys(Key lo, Key hi) {
         if (head == null) {
             return null;
         }

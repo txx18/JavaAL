@@ -1,4 +1,4 @@
-package st;
+package search.st;
 
 /**
  * 简单符号表API
@@ -10,69 +10,69 @@ public abstract class AbstractST<Key extends Comparable<Key>, Value> {
 
     public int size;
 
-    abstract void put(Key key, Value val);
+    public abstract void put(Key key, Value val);
 
-    abstract Value get(Key key);
+    public abstract Value get(Key key);
 
-    void delete(Key key) {
+    public void delete(Key key) {
         put(key, null);
     }
 
-    boolean contains(Key key) {
+    public boolean contains(Key key) {
         return get(key) != null;
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return size() == 0;
     }
 
-    int size() {
-        return size;
+    public int size() {
+        return this.size;
     }
 
-    abstract Key min();
+    public abstract Key min();
 
-    abstract Key max();
+    public abstract Key max();
 
     /**
      * <=k的最大键
      * @param key
      * @return
      */
-    abstract Key floor(Key key);
+    public abstract Key floor(Key key);
 
     /**
      * >=key的最小键
      * @param key
      * @return
      */
-    abstract Key ceiling(Key key);
+    public abstract Key ceiling(Key key);
 
     /**
      * 小于key的键的数量
      * @param key
      * @return
      */
-    abstract int rank(Key key);
+    public abstract int rank(Key key);
 
     /**
      * 排名为k的的键
      * @param k
      * @return
      */
-    abstract Key select(int k);
+    public abstract Key select(int k);
 
     /**
      * 删除最小的键
      */
-    void deleteMin() {
+    public void deleteMin() {
         delete(min());
     }
 
     /**
      * 删除最大的键
      */
-    void deleteMax() {
+    public void deleteMax() {
         delete(max());
     }
 
@@ -83,7 +83,7 @@ public abstract class AbstractST<Key extends Comparable<Key>, Value> {
      * @param hi
      * @return
      */
-    int size(Key lo, Key hi) {
+    public int size(Key lo, Key hi) {
         if (hi.compareTo(lo) < 0) {
             return 0;
         }else if (contains(hi)) {
@@ -98,7 +98,7 @@ public abstract class AbstractST<Key extends Comparable<Key>, Value> {
      *
      * @return
      */
-    Iterable<Key> keys() {
+    public Iterable<Key> keys() {
         return keys(min(), max());
     }
 
@@ -108,5 +108,5 @@ public abstract class AbstractST<Key extends Comparable<Key>, Value> {
      * @param hi
      * @return
      */
-    abstract Iterable<Key> keys(Key lo, Key hi);
+    public abstract Iterable<Key> keys(Key lo, Key hi);
 }

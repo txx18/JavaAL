@@ -1,4 +1,4 @@
-package st;
+package search.st;
 
 /**
  * 简单符号表API
