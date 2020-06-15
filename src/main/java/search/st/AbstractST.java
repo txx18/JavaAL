@@ -35,7 +35,8 @@ public abstract class AbstractST<Key extends Comparable<Key>, Value> {
     public abstract Key max();
 
     /**
-     * <=k的最大键
+     * <=key的最大键
+     * 向下取整
      * @param key
      * @return
      */
@@ -43,6 +44,7 @@ public abstract class AbstractST<Key extends Comparable<Key>, Value> {
 
     /**
      * >=key的最小键
+     * 向上取整
      * @param key
      * @return
      */
