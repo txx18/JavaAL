@@ -15,6 +15,7 @@ public abstract class AbstractST<Key extends Comparable<Key>, Value> {
     public abstract Value get(Key key);
 
     public void delete(Key key) {
+        // 如果底层是BST就没这么简单了
         put(key, null);
     }
 
