@@ -1,7 +1,7 @@
 package search.st;
 
 /**
- * 简单符号表API
+ * 有序符号表API
  *
  * @author Shane Tang
  * @create 2020-06-04 21:44

@@ -12,8 +12,8 @@ public class BinarySearch<Key extends Comparable<Key>> {
         Integer[] arr = {3, 5, 11, 17, 21, 23, 28, 30, 32, 50, 64, 78, 81, 95, 101};
         Integer[] arr2 = {-1,0,3,5,9,12};
         BinarySearch<Integer> obj = new BinarySearch<>();
-        int resLoop = obj.rankLoop(arr, 29);
-        int resRecur = obj.rankLoop(arr, 29);
+        int resLoop = obj.rankLoop(arr, 105);
+        int resRecur = obj.rankLoop(arr, 105);
         System.out.println("resLoop = " + resLoop);
         System.out.println("resRecur = " + resRecur);
     }
