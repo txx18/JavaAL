@@ -1,15 +1,8 @@
 package search;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import org.junit.Assert;
 import org.junit.Test;
-import search.st.AbstractST;
-import search.st.BST;
-import search.st.BinarySearchST;
-import search.st.SquentialST;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;

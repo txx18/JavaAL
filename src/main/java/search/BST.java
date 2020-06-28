@@ -1,10 +1,11 @@
-package search.st;
+package search;
 
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ * 二叉查找树符号表
  * @author Shane Tang
  * @create 2020-06-14 23:00
  */

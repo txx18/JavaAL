@@ -1,4 +1,4 @@
-package search.st;
+package search;
 
 import java.io.File;
 import java.io.FileReader;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 算法3.1 顺序查找（基于无序链表）
+ * 算法3.1 顺序查找（基于无序链表）符号表
  * @author Shane Tang
  * @create 2020-06-10 8:55
  */

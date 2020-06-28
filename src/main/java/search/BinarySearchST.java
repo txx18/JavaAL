@@ -1,6 +1,4 @@
-package search.st;
-
-import search.BinarySearch;
+package search;
 
 import java.util.ArrayList;
 import java.util.Arrays;
