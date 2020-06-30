@@ -6,28 +6,29 @@ package search;
  * @author Shane Tang
  * @create 2020-06-04 21:44
  */
-public interface SimpleST<K, V> {
-    void put(K k, V v);
+public abstract class SimpleST<Key, Value> {
 
-    V get(K k);
+    abstract void put(Key key, Value value);
 
-    default void delete(K k) {
-        put(k, null);
+    abstract Value get(Key key);
+
+    void delete(Key key) {
+        put(key, null);
     }
 
-    default boolean contains(K k) {
-        return get(k) != null;
+    boolean contains(Key key) {
+        return get(key) != null;
     }
 
-    default boolean isEmpty() {
+    boolean isEmpty() {
         return size() == 0;
     }
 
-    int size();
+    abstract int size();
 
     /**
      * 表中所有键的集合
      * @return
      */
-    Iterable<K> keys();
+    abstract Iterable<Key> keys();
 }

@@ -1,5 +1,6 @@
 package search;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,8 +16,8 @@ public class SearchTest {
 
     @Test
     public void testSquentialST() throws IOException {
-        AbstractST<String, Integer> obj = new SquentialST<>();
-        URL url = SquentialST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
+        SimpleST<String, Integer> obj = new SequentialSearchST<>();
+        URL url = SequentialSearchST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
         assert url != null;
         File file = new File(url.getFile());
         FileReader fr = new FileReader(file);
@@ -36,7 +37,7 @@ public class SearchTest {
     @Test
     public void testBinarySearchST() throws IOException {
         AbstractST<String, Integer> obj = new BinarySearchST<>();
-        URL url = SquentialST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
+        URL url = SequentialSearchST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
         assert url != null;
         File file = new File(url.getFile());
         FileReader fr = new FileReader(file);
@@ -56,7 +57,7 @@ public class SearchTest {
     @Test
     public void testBST() throws IOException {
         BST<String, Integer> obj = new BST<>();
-        URL url = SquentialST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
+        URL url = SequentialSearchST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
         assert url != null;
         File file = new File(url.getFile());
         FileReader fr = new FileReader(file);
@@ -84,5 +85,26 @@ public class SearchTest {
         for (String key : obj.keys()) {
             System.out.println(key + " " + obj.get(key));
         }
+    }
+
+    @Test
+    public void testSeparateChainingHashST() throws IOException {
+        SimpleST<String, Integer> obj = new SeparateChainingHashST<>(5);
+        URL url = SequentialSearchST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
+        assert url != null;
+        File file = new File(url.getFile());
+        FileReader fr = new FileReader(file);
+        int len;
+        char[] cbuf = new char[1];
+        for (int i = 0; (len = fr.read(cbuf)) != -1; i++) {
+            String key = new String(cbuf, 0, len);
+            obj.put(key, i);
+        }
+        fr.close();
+        Assert.assertEquals((int) obj.get("E"), 12);
+//        System.out.println(obj.get("E"));
+//        for (String key : obj.keys()) {
+//            System.out.println(key + " " + obj.get(key));
+//        }
     }
 }

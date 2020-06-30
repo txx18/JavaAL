@@ -7,6 +7,9 @@ package search;
  */
 public class RedBlackBST<Key extends Comparable<Key>, Value> extends AbstractST<Key, Value> {
 
+    public static void main(String[] args) {
+    }
+
     private static final boolean RED = true;
     private static final boolean BLACK = false;
     private RBNode root;

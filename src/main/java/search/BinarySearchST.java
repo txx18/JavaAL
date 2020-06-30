@@ -16,6 +16,8 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> extends Abstract
 
     private Value[] values;
 
+    private int N;
+
     final int DEFAULT_SIZE = 4;
 
     public BinarySearchST() {
@@ -46,7 +48,11 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> extends Abstract
         }
         keys[rank] = key;
         values[rank] = val;
-        this.size++;
+        this.N++;
+    }
+
+    private int size() {
+        return this.N;
     }
 
     private void resize(int length) {
@@ -68,6 +74,10 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> extends Abstract
         } else {
             return null;
         }
+    }
+
+    public boolean isEmpty() {
+        return this.N == 0;
     }
 
     @Override

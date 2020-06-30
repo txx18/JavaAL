@@ -54,7 +54,6 @@ public class BST<Key extends Comparable<Key>, Value> extends AbstractST<Key, Val
                 '}';
     }
 
-    @Override
     public int size() {
         return size(root);
     }
@@ -362,6 +361,10 @@ public class BST<Key extends Comparable<Key>, Value> extends AbstractST<Key, Val
     public void delete(Key key) {
         // 递归会返回root
         root = delete(root, key);
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
     }
 
     /**
