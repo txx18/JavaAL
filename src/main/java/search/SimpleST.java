@@ -12,9 +12,7 @@ public abstract class SimpleST<Key, Value> {
 
     abstract Value get(Key key);
 
-    void delete(Key key) {
-        put(key, null);
-    }
+    abstract void delete(Key key);
 
     boolean contains(Key key) {
         return get(key) != null;

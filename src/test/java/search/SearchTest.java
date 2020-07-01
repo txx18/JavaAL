@@ -107,4 +107,26 @@ public class SearchTest {
 //            System.out.println(key + " " + obj.get(key));
 //        }
     }
+
+    @Test
+    public void testLinearProbingHashST() throws IOException {
+        SimpleST<String, Integer> obj = new LinearProbingHashST<>(16);
+        URL url = SequentialSearchST.class.getClassLoader().getResource("SEARCHEXAMPLE.txt");
+        assert url != null;
+        File file = new File(url.getFile());
+        FileReader fr = new FileReader(file);
+        int len;
+        char[] cbuf = new char[1];
+        for (int i = 0; (len = fr.read(cbuf)) != -1; i++) {
+            String key = new String(cbuf, 0, len);
+            obj.put(key, i);
+        }
+        fr.close();
+        Assert.assertEquals((int) obj.get("E"), 12);
+        Assert.assertNull((int) obj.get("B"));
+//        System.out.println(obj.get("E"));
+//        for (String key : obj.keys()) {
+//            System.out.println(key + " " + obj.get(key));
+//        }
+    }
 }

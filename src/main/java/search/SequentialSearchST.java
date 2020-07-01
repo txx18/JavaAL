@@ -70,6 +70,10 @@ public class SequentialSearchST<Key, Value> extends SimpleST<Key, Value>{
     }
 
     @Override
+    void delete(Key key) {
+    }
+
+    @Override
     int size() {
         return 0;
     }
