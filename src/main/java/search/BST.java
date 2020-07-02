@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 二叉查找树符号表
+ * 二叉树查找（基于二叉查找树）
  * @author Shane Tang
  * @create 2020-06-14 23:00
  */

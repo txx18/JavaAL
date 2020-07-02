@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 顺序查找（基于无序链表）符号表
+ * 顺序查找（基于无序链表）
  * @author Shane Tang
  * @create 2020-06-10 8:55
  */

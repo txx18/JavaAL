@@ -123,7 +123,7 @@ public class SearchTest {
         }
         fr.close();
         Assert.assertEquals((int) obj.get("E"), 12);
-        Assert.assertNull((int) obj.get("B"));
+        Assert.assertNull(obj.get("B"));
 //        System.out.println(obj.get("E"));
 //        for (String key : obj.keys()) {
 //            System.out.println(key + " " + obj.get(key));

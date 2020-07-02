@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 二分查找符号表（基于有序数组）
+ * 二分查找（基于有序数组）
  *
  * @author Shane Tang
  * @create 2020-06-11 20:44

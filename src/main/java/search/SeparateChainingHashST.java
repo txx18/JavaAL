@@ -1,6 +1,7 @@
 package search;
 
 /**
+ * 散列表拉链法（基于链表数组）
  * @author Shane Tang
  * @create 2020-06-29 10:50
  */

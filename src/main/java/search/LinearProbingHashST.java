@@ -1,10 +1,7 @@
 package search;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
-import java.util.Objects;
-
 /**
+ * 散列表线性探测法（基于并行数组）
  * @author Shane Tang
  * @create 2020-07-01 15:21
  */

@@ -1,7 +1,7 @@
 package search;
 
 /**
- * 红黑二叉查找树（红黑树）
+ * 2-3树查找（基于红黑二叉查找树（红黑树））
  * @author Shane Tang
  * @create 2020-06-28 15:17
  */
