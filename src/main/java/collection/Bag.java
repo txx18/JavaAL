@@ -1,11 +1,9 @@
 package collection;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 算法1.4 背包
+ * 算法1.4 背包 （底层链表）
  *
  * @author Shane Tang
  * @version V1.0

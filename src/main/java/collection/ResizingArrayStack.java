@@ -32,6 +32,14 @@ public class ResizingArrayStack<E> implements Iterable<E> {
       */
     private int size;
 
+    /**
+     * （我）默认容量10
+     */
+    public ResizingArrayStack() {
+        this.elements = ((E[]) new Object[10]); //
+        this.size = 0;
+    }
+
     public ResizingArrayStack(int cap) {
         this.elements = ((E[]) new Object[cap]); // new泛型数组
         this.size = 0;

@@ -1,5 +1,8 @@
 package graph;
 
+import collection.Bag;
+import edu.princeton.cs.algs4.In;
+
 import java.util.*;
 
 /**
@@ -19,7 +22,7 @@ public class Graph {
     /**
      * 顶点数目
      */
-    private int V;
+    private final int V;
     /**
      * 边数目
      */
@@ -28,8 +31,11 @@ public class Graph {
      * 邻接表
      */
 //    private Set<Integer>[] adj;
-    private List<Integer>[] adj;
-
+//    private List<Integer>[] adj;
+    /**
+     * 书上用的Bag数组作为底层表示邻接表
+     */
+    private Bag<Integer>[] adj;
     /**
      *
      * @param V
@@ -39,15 +45,30 @@ public class Graph {
         this.E = 0;
         // 初始化由 构成的数组，new出来再强转
 //        adj = (HashSet<Integer>[]) new HashSet[V];
-        adj = (LinkedList<Integer>[]) new LinkedList[V];
+//        adj = (LinkedList<Integer>[]) new LinkedList[V];
+        adj = (Bag<Integer>[]) new Bag[V];
         for (int i = 0; i < V; i++) {
 //            adj[i] = new HashSet<>();
-            adj[i] = new LinkedList<>();
+//            adj[i] = new LinkedList<>();
+            adj[i] = new Bag<Integer>();
+        }
+    }
+
+    public Graph(In in) {
+        // 读取V并将图初始化
+        this(in.readInt());
+        // 读取E
+        int E = in.readInt();
+        // 添加边
+        for (int i = 0; i < E; i++) {
+            int v = in.readInt();
+            int w = in.readInt();
+            addEdge(v, w);
         }
     }
 
     /**
-     * 用二维数组邻接表构造图
+     * （我）用二维数组邻接表构造图
      *
      * @param adj
      */
@@ -56,14 +77,20 @@ public class Graph {
         this(adj.length);
         for (int i = 0; i < adj.length; i++) {
             for (int j = 0; j < adj[i].length; j++) {
-                addEdge(i, adj[i][j]);
+                // 二维数组手动表示了平行边，所以只用每个只添加一条边；但是tinyG.txt不会手动表示平行边
+                addSingleEdge(i, adj[i][j]);
             }
         }
     }
 
-    public void addEdge(int i, int j) {
-        adj[i].add(j);
-//        adj[w].add(v);
+    private void addSingleEdge(int v, int w) {
+        adj[v].add(w);
+        this.E++;
+    }
+
+    public void addEdge(int v, int w) {
+        adj[v].add(w);
+        adj[w].add(v);
         this.E++;
     }
 
@@ -72,24 +99,24 @@ public class Graph {
     }
 
     public int E() {
-        return E / 2;
+        return E;
     }
 
     /**
-     * @param i
+     * @param v
      * @return 集合都可以用List或Iterable接口接收
      */
-    public Iterable<Integer> adj(int i) {
-        return adj[i];
+    public Iterable<Integer> adj(int v) {
+        return adj[v];
     }
 
     @Override
     public String toString() {
         String s = V() + " vertices, " + E() + " edges\n";
-        for (int i = 0; i < V; i++) {
-            s += i + ": ";
-            for (int j : this.adj[i]) {
-                s += j + " ";
+        for (int v = 0; v < V; v++) {
+            s += v + ": ";
+            for (int w : this.adj[v]) {
+                s += w + " ";
             }
             s += "\n";
         }

@@ -1,5 +1,7 @@
 package graph;
 
+import collection.ResizingArrayStack;
+
 import java.util.Stack;
 
 /**
@@ -13,26 +15,7 @@ import java.util.Stack;
  * @version V1.0
  * @create 2020-04-05 11:38
  */
-public class DFS {
-
-    public static void main(String[] args) {
-        // 初始化
-        int[][] adjList = {{2, 1, 5}, {0, 2}, {0, 1, 3, 4}, {5, 4, 2}, {3, 2}, {3, 0}};
-        Graph graph = new Graph(adjList);
-        int s = 0;
-        int d = 5;
-        // 深度优先搜索，设置搜索树
-        DFS obj = new DFS(graph, s);
-        // 查找路径
-        System.out.println("是否存在到" + d + "的路径：" + obj.hasPathTo(d));
-        Stack<Integer> pathTo = obj.pathTo(d);
-        while (!pathTo.isEmpty()) {
-            System.out.print(pathTo.pop() + " ");
-        }
-        System.out.println();
-        System.out.println("连通节点个数：" + obj.count());
-    }
-
+public class DFS implements Search, Paths{
 
     private Graph G;
     /**
@@ -73,33 +56,42 @@ public class DFS {
         marked[i] = true;
         for (Integer j : G.adj(i)) {
             if (!marked[j]) {
-                count++;
+                this.count++;
                 // 【关键】设置edgeTo
                 edgeTo[j] = i;
+                // 递归
                 dfs(j);
             }
         }
     }
 
-    public boolean hasPathTo(int i) {
-        return marked[i];
+    @Override
+    public boolean hasPathTo(int v) {
+        return marked[v];
     }
 
-    public Stack<Integer> pathTo(int i) {
-        if (!hasPathTo(i)) {
+    @Override
+    public Iterable<Integer> pathTo(int v) {
+        if (!hasPathTo(v)) {
             return null;
         }
-        // 准备一个栈收集path上的节点
-        Stack<Integer> path = new Stack<>();
+        // 准备一个栈收集path上的节点（要保证Iterator迭代是逆序，而系统的Stack不是逆序的）
+        ResizingArrayStack<Integer> path = new ResizingArrayStack<>();
         // 【关键】遍历edgeTo直到找到起点
-        for (int j = i; j != s; j = edgeTo[j]) {
-            path.push(j);
+        for (int x = v; x != s; x = edgeTo[x]) {
+            path.push(x);
         }
         path.push(s);
         return path;
     }
 
+    @Override
+    public boolean marked(int v) {
+        return marked[v];
+    }
+
+    @Override
     public int count() {
-        return count;
+        return this.count;
     }
 }
