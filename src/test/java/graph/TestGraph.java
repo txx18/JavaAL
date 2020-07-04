@@ -36,11 +36,34 @@ public class TestGraph {
     }
 
     @Test
-    public void testPaths() {
+    public void testDFS() {
         Graph G = new Graph(new In("tinyG.txt"));
 //        System.out.println(G);
         int s = Integer.parseInt("0");
-        Paths paths = new DFS(G, s);
+        DFS paths = new DFS(G, s);
+        System.out.println("与s连通的顶点总数：" + paths.count());
+        for (int v = 0; v < G.V(); v++) {
+            if (paths.hasPathTo(v)) {
+                System.out.print(s + " to " + v + ": ");
+                for (int x: paths.pathTo(v)) {
+                    if (x == s) {
+                        System.out.print(x);
+                    }else {
+                        System.out.print("-" + x);
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    @Test
+    public void testBFS() {
+        Graph G = new Graph(new In("tinyG.txt"));
+//        System.out.println(G);
+        int s = Integer.parseInt("0");
+        BFS paths = new BFS(G, s);
+        System.out.println("与s连通的顶点总数：" + paths.count());
         for (int v = 0; v < G.V(); v++) {
             if (paths.hasPathTo(v)) {
                 System.out.print(s + " to " + v + ": ");

@@ -1,20 +1,22 @@
 package graph;
 
+import collection.ResizingArrayStack;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 /**
  * 广度优先搜索
- * 1、单点最短路径
+ * 解决单点最短路径问题
  *
  * @author Shane Tang
  * @version V1.0
  * @create 2020-04-05 16:21
  */
-public class BFS {
+public class BFS implements Search, Paths{
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         // 初始化
         int[][] adjList = {{2, 1, 5}, {0, 2}, {0, 1, 3, 4}, {5, 4, 2}, {3, 2}, {3, 0}};
         Graph graph = new Graph(adjList);
@@ -27,7 +29,7 @@ public class BFS {
         while (!pathTo.isEmpty()) {
             System.out.print(pathTo.pop() + " ");
         }
-    }
+    }*/
 
     private Graph G;
 
@@ -36,6 +38,10 @@ public class BFS {
     private int[] edgeTo;
 
     private final int s;
+    /**
+     * 与起点连通的节点个数
+     */
+    private int count;
 
     public BFS(Graph G, int s) {
         this.G = G;
@@ -53,6 +59,7 @@ public class BFS {
         while (!queue.isEmpty()) {
             // 【关键】出队列一个
             int i = queue.poll();
+            this.count++;
             for (int j : G.adj(i)) {
                 if (!marked[j]) {
                     marked[j] = true;
@@ -64,21 +71,33 @@ public class BFS {
         }
     }
 
+    @Override
     public boolean hasPathTo(int i) {
         return marked[i];
     }
 
-    public Stack<Integer> pathTo(int i) {
+    @Override
+    public Iterable<Integer> pathTo(int i) {
         if (!hasPathTo(i)) {
             return null;
         }
         // 准备一个栈收集path上的节点
-        Stack<Integer> path = new Stack<>();
+        ResizingArrayStack<Integer> path = new ResizingArrayStack<>();
         // 遍历edgeTo直到找到起点
         for (int j = i; j != s; j = edgeTo[j]) {
             path.push(j);
         }
         path.push(s);
         return path;
+    }
+
+    @Override
+    public boolean marked(int v) {
+        return marked[v];
+    }
+
+    @Override
+    public int count() {
+        return this.count;
     }
 }

@@ -19,7 +19,7 @@ public class DFS implements Search, Paths{
 
     private Graph G;
     /**
-     * marked[i] i顶点是否调用dfs
+     * marked[i] 1、i是否与起点连通 2、i顶点是否调用dfs
      * i顶点和起点是否连通
      */
     private boolean[] marked;
@@ -49,18 +49,18 @@ public class DFS implements Search, Paths{
     /**
      * 深度优先搜索
      *
-     * @param i
+     * @param v
      */
-    private void dfs(int i) {
+    private void dfs(int v) {
+        this.count++;
         // 【关键】上来先mark了
-        marked[i] = true;
-        for (Integer j : G.adj(i)) {
-            if (!marked[j]) {
-                this.count++;
-                // 【关键】设置edgeTo
-                edgeTo[j] = i;
+        marked[v] = true;
+        for (Integer w : G.adj(v)) {
+            if (!marked(w)) {
+                // 【关键】设置edgeTo，表示v-w是第一次访问w时经过的边
+                edgeTo[w] = v;
                 // 递归
-                dfs(j);
+                dfs(w);
             }
         }
     }
