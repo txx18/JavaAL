@@ -6,11 +6,13 @@ package tree;
  * @author Shane Tang
  * @create 2020-06-14 23:00
  */
-public class BST<T extends Comparable<? super T>> {
+public class BST<Key extends Comparable<? super Key>> {
 
     public BSTNode root;
 
-
-    private class BSTNode {
+    private class BSTNode<Key extends Comparable<? super Key>> {
+        Key key;
+        BSTNode<Key> left;
+        BSTNode<Key> right;
     }
 }
