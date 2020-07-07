@@ -1,5 +1,7 @@
 package generic;
 
+import java.util.Comparator;
+
 /**
  * @author Shane Tang
  * @create 2020-07-06 16:37
@@ -61,4 +63,6 @@ public class GenericFindMax {
         }
         return arr[maxIndex];
     }
+
+
 }
