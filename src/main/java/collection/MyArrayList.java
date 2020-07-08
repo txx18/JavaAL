@@ -1,7 +1,6 @@
 package collection;
 
 import java.util.Iterator;
-import java.util.Objects;
 
 /**
  * @author Shane Tang
@@ -14,7 +13,11 @@ public class MyArrayList<T> implements Iterable<T> {
     private T[] items;
 
     public MyArrayList() {
-        this.items = ((T[]) new Objects[10]);
+        this.items = ((T[]) new Object[10]);
+    }
+
+    public int size() {
+        return size;
     }
 
     // get
@@ -35,40 +38,57 @@ public class MyArrayList<T> implements Iterable<T> {
 
     // ensureCapacity
     private void ensureCapacity(int newCap) {
-//        if (size <= newCap) { /* <= 原来有2个，准备*/
-//            T[] newArr = (T[]) new Objects[newCap * 2];
-//            for (int i = 0; i < size; i++) {
-//                newArr[i] = items[i];
-//            }
-//            items = newArr;
-//        }
+
     }
 
     // add
+    public void add(T x) {
+
+    }
+
     public void add(int index, T x) {
-//        ensureCapacity(size + 1);
-//        for (int i = size; i > index; i--) { /* i = size */
-//            items[i] = items[i - 1];
-//        }
-//        items[index] = x;
-//        size++;
+
     }
 
 
 
     // remove
-    public T remove(int index) {
-        T itemToRemove = items[index];
-        for (int i = index; i < size; i++) {
-            items[i] = items[i + 1];
-        }
-        size--;
-        return itemToRemove;
+    public T removeItem(int index) {
+        return null;
     }
 
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyArrayListIterator();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size(); i++) {
+            sb.append(items[i]).append(" ");
+        }
+        return sb.toString();
+    }
+
+    private class MyArrayListIterator implements Iterator<T> {
+
+        int cur = 0;
+
+        @Override
+        public boolean hasNext() {
+            return cur < size();
+        }
+
+        @Override
+        public T next() {
+            return items[cur++];
+        }
+
+        @Override
+        public void remove() {
+
+        }
     }
 }

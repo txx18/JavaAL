@@ -31,13 +31,13 @@ public class GenericFindMax {
 
     // 第一种写法，能够被编译，但是Comparable如今是泛型的
     public static <T extends Comparable> T findMax1(T[] arr) {
-            int maxIndex = 0;
-            for (int i = 0; i < arr.length; i++) {
-                if (arr[i].compareTo(arr[maxIndex]) > 0) { // 无编译错误
-                    maxIndex = i;
-                }
+        int maxIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].compareTo(arr[maxIndex]) > 0) { // 无编译错误
+                maxIndex = i;
             }
-            return arr[maxIndex];
+        }
+        return arr[maxIndex];
     }
 
     // 第二种写法
