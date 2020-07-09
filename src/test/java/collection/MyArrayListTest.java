@@ -1,9 +1,8 @@
 package collection;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Iterator;
 
 public class MyArrayListTest {
 
@@ -23,23 +22,32 @@ public class MyArrayListTest {
         for (int i = 0; i < 10; i++) {
             myArrayList.add(i);
         }
-        System.out.println("myArrayList = " + myArrayList);
+        System.out.println("add myArrayList = " + myArrayList);
     }
 
 
     @Test
     public void remove() {
-        for (int i = 0; i < 10; i++) {
-            myArrayList.add(i);
-        }
+        add();
         System.out.println("myArrayList = " + myArrayList);
-        myArrayList.removeItem(0);
+        myArrayList.remove(0);
         System.out.println("myArrayList = " + myArrayList);
-        myArrayList.removeItem(myArrayList.size() - 1);
+        myArrayList.remove(myArrayList.size() - 1);
+        System.out.println("myArrayList = " + myArrayList);
+        myArrayList.remove(2);
         System.out.println("myArrayList = " + myArrayList);
     }
 
     @Test
     public void iterator() {
+        add();
+        Iterator<Integer> iterator = myArrayList.iterator();
+        while (iterator.hasNext()) {
+            // 可以做到只打印奇数
+            if (iterator.next() % 2 == 0) {
+                System.out.print(iterator.next() + " ");
+            }
+
+        }
     }
 }

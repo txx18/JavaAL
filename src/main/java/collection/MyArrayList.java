@@ -13,7 +13,7 @@ public class MyArrayList<T> implements Iterable<T> {
     private T[] items;
 
     public MyArrayList() {
-        this.items = ((T[]) new Object[10]);
+        this.items = ((T[]) new Object[4]);
     }
 
     public int size() {
@@ -22,7 +22,7 @@ public class MyArrayList<T> implements Iterable<T> {
 
     // get
     public T get(int index) {
-        if (index >= size || index < 0 ) { /*index < 0*/
+        if (index >= size || index < 0) { /*index < 0*/
             throw new ArrayIndexOutOfBoundsException();
         }
         return items[index];
@@ -30,7 +30,7 @@ public class MyArrayList<T> implements Iterable<T> {
 
     // set
     public void set(int index, T newItem) {
-        if (index >= size || index < 0 ) { /*index < 0*/
+        if (index >= size || index < 0) { /*index < 0*/
             throw new ArrayIndexOutOfBoundsException();
         }
         items[index] = newItem;
@@ -38,23 +38,39 @@ public class MyArrayList<T> implements Iterable<T> {
 
     // ensureCapacity
     private void ensureCapacity(int newCap) {
-
+        T[] newArr = (T[]) new Object[newCap];
+        for (int i = 0; i < size(); i++) {
+            newArr[i] = items[i];
+        }
+        items = newArr;
     }
 
     // add
     public void add(T x) {
-
+        add(size(), x);
     }
 
-    public void add(int index, T x) {
-
+    public boolean add(int index, T x) {
+        if (size() == items.length) {
+            ensureCapacity(2 * size + 1);
+        }
+        for (int i = size; i > index; i--) {
+            items[i] = items[i - 1];
+        }
+        items[index] = x;
+        size++;
+        return true;
     }
-
 
 
     // remove
-    public T removeItem(int index) {
-        return null;
+    public T remove(int index) {
+        T toRm = items[index];
+        for (int i = index; i < size() - 1; i++) {  /* i < size() - 1 */
+            items[i] = items[i + 1];
+        }
+        size--;
+        return toRm;
     }
 
 
@@ -88,7 +104,7 @@ public class MyArrayList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-
+            MyArrayList.this.remove(--cur);
         }
     }
 }
