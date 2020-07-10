@@ -1,18 +1,21 @@
 package collection;
 
-import com.sun.org.apache.xpath.internal.objects.XNull;
-
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Shane Tang
  * @create 2020-07-08 22:18
  */
-public class MyLinkedList<T> implements Iterable<T> {
+public class MyLinkedList<T> implements MyList<T>, Iterable<T> {
 
     private Node<T> beginMarker;
     private Node<T> endMarker;
     private int size;
+    /**
+     * 防止多线程修改
+     */
     private int modCount;
 
     public MyLinkedList() {
@@ -36,11 +39,13 @@ public class MyLinkedList<T> implements Iterable<T> {
         }
     }
 
+    @Override
     public int size() {
         return size;
     }
 
     // 自然转换为在index插入的特例
+    @Override
     public void add(T x) {
         add(size(), x);
     }
@@ -50,10 +55,12 @@ public class MyLinkedList<T> implements Iterable<T> {
         addBefore(getNode(index, 0, size()), x);
     }
 
+    @Override
     public T get(int index) {
         return getNode(index).data;
     }
 
+    @Override
     public T set(int index, T x) {
         Node<T> p = getNode(index);
         T old = p.data;
@@ -61,6 +68,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         return old;
     }
 
+    @Override
     public T remove(int index) {
         return remove(getNode(index));
     }
@@ -128,19 +136,40 @@ public class MyLinkedList<T> implements Iterable<T> {
 
     private class MyLinkedListIterator implements Iterator<T> {
 
+        private Node<T> cursor = beginMarker.next;
+        private int expectModCount = modCount;
+        private boolean canMod = false;
+
         @Override
         public boolean hasNext() {
-            return false;
+            return cursor != endMarker;
         }
 
         @Override
         public T next() {
-            return null;
+            if (expectModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
+            if (!hasNext()) {
+                throw new NoSuchElementException();/*NoSuchElementException*/
+            }
+            Node<T> cur = cursor;
+            cursor = cursor.next;
+            canMod = true; /*调用next则可以remove*/
+            return cur.data;
         }
 
         @Override
         public void remove() {
-
+            if (expectModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
+            if (!canMod) {
+                throw new IllegalStateException();
+            }
+            MyLinkedList.this.remove(cursor.pre);
+            expectModCount++;
+            canMod = false;
         }
     }
 }

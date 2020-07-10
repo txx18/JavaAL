@@ -6,68 +6,75 @@ import java.util.Iterator;
  * @author Shane Tang
  * @create 2020-07-07 16:01
  */
-public class MyArrayList<T> implements Iterable<T> {
+public class MyArrayList<T> implements Iterable<T>, MyList<T> {
 
     private int size;
 
-    private T[] items;
+    private T[] elements;
 
     public MyArrayList() {
-        this.items = ((T[]) new Object[4]);
+        this.elements = ((T[]) new Object[4]);
     }
 
+    @Override
     public int size() {
         return size;
     }
 
     // get
+    @Override
     public T get(int index) {
         if (index >= size || index < 0) { /*index < 0*/
             throw new ArrayIndexOutOfBoundsException();
         }
-        return items[index];
+        return elements[index];
     }
 
     // set
-    public void set(int index, T newItem) {
+    @Override
+    public T set(int index, T newItem) {
+        T old = elements[index];
         if (index >= size || index < 0) { /*index < 0*/
             throw new ArrayIndexOutOfBoundsException();
         }
-        items[index] = newItem;
+        elements[index] = newItem;
+        return old;
     }
 
     // ensureCapacity
     private void ensureCapacity(int newCap) {
         T[] newArr = (T[]) new Object[newCap];
         for (int i = 0; i < size(); i++) {
-            newArr[i] = items[i];
+            newArr[i] = elements[i];
         }
-        items = newArr;
+        elements = newArr;
     }
 
     // add
+    @Override
     public void add(T x) {
         add(size(), x);
     }
 
     public boolean add(int index, T x) {
-        if (size() == items.length) {
+        if (size() == elements.length) {
             ensureCapacity(2 * size + 1);
         }
         for (int i = size; i > index; i--) {
-            items[i] = items[i - 1];
+            elements[i] = elements[i - 1];
         }
-        items[index] = x;
+        elements[index] = x;
         size++;
         return true;
     }
 
 
     // remove
+    @Override
     public T remove(int index) {
-        T toRm = items[index];
+        T toRm = elements[index];
         for (int i = index; i < size() - 1; i++) {  /* i < size() - 1 */
-            items[i] = items[i + 1];
+            elements[i] = elements[i + 1];
         }
         size--;
         return toRm;
@@ -83,7 +90,7 @@ public class MyArrayList<T> implements Iterable<T> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size(); i++) {
-            sb.append(items[i]).append(" ");
+            sb.append(elements[i]).append(" ");
         }
         return sb.toString();
     }
@@ -99,7 +106,7 @@ public class MyArrayList<T> implements Iterable<T> {
 
         @Override
         public T next() {
-            return items[cur++];
+            return elements[cur++];
         }
 
         @Override
