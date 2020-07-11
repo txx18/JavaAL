@@ -80,15 +80,5 @@ public class TestGraph {
     }
 
 
-    @Test
-    public void testStack() {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        // Stack的迭代遍历依然是正序
-        for (Integer integer : stack) {
-            System.out.println(integer);
-        }
-    }
+
 }
