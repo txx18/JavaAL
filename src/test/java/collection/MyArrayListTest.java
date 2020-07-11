@@ -1,7 +1,9 @@
 package collection;
 
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MyArrayListTest {
@@ -49,5 +51,14 @@ public class MyArrayListTest {
             }
 
         }
+    }
+
+    @Test
+    public void testArrayList() {
+        ArrayList<Integer> arrayList = new ArrayList<>(10);
+        for (int i = 0; i < 5; i++) {
+            arrayList.add(i);
+        }
+        System.out.println("arrayList = " + arrayList);
     }
 }

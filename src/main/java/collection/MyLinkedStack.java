@@ -9,11 +9,8 @@ import java.util.EmptyStackException;
 public class MyLinkedStack<T> implements MyStack<T>{
 
     private Node<T> head;
+
     private int size;
-    /**
-     * 防止多线程修改
-     */
-    private int modCount;
 
     public MyLinkedStack() {
     }
@@ -21,7 +18,6 @@ public class MyLinkedStack<T> implements MyStack<T>{
     private static class Node<T> {
         private T data;
         private Node<T> next;
-        private Node<T> pre;
 
         public Node() {
 
@@ -53,6 +49,7 @@ public class MyLinkedStack<T> implements MyStack<T>{
         }
         Node<T> top = head;
         head = head.next;
+        top.next = null; // 想释放掉老指针
         return top.data;
     }
 
