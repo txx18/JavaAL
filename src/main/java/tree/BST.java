@@ -15,7 +15,13 @@ public class BST<T extends Comparable<? super T>> {
         root.right = new BSTNode<>(3);
 
         BST<Integer> bst = new BST<>();
+        for (int i = 0; i < 10; i++) {
+            bst.insert(i);
+        }
         System.out.println(bst.contains(3));
+        System.out.println(bst.findMin());
+        System.out.println(bst.findMax());
+        bst.remove(bst.findMax());
     }
 
     public BSTNode root;
@@ -52,17 +58,17 @@ public class BST<T extends Comparable<? super T>> {
         return contains(x, root);
     }
 
-    public T findMin() throws Exception {
+    public T findMin() {
         if (isEmpty()) {
-            throw new Exception();
+            throw new NullPointerException();
         }
         // TODO
         return (T) findMin(root).element;
     }
 
-    public T findMax() throws Exception {
+    public T findMax() {
         if (isEmpty()) {
-            throw new Exception();
+            throw new NullPointerException();
         }
         return (T) findMax(root).element;
     }
@@ -100,30 +106,55 @@ public class BST<T extends Comparable<? super T>> {
 
     /**
      * 用递归实现
-     * @param cur
+     *
+     * @param t
      * @return
      */
-    private BSTNode<T> findMin(BSTNode<T> cur) {
+    private BSTNode<T> findMin(BSTNode<T> t) {
+/*        // （我）
         if (cur.left != null) {
             return findMin(cur.left);
         }
-        return cur;
+        return cur;*/
+
+        if (t == null) {
+            return null;
+        } else if (t.left == null) {
+            return t;
+        }
+        return findMin(t.left);
+
     }
 
     /**
      * 用循环实现
-     * @param cur
+     *
+     * @param t
      * @return
      */
-    private BSTNode<T> findMax(BSTNode<T> cur) {
-        while (cur.right != null) {
-            cur = cur.right;
+    private BSTNode<T> findMax(BSTNode<T> t) {
+/*        while (t.right != null) {
+            t = t.right;
         }
-        return cur;
+        return t;*/
+/*        // 递归同理
+        if (t == null) {
+            return null;
+        }else if (t.right == null) {
+            return t;
+        }
+        return findMax(t.right);*/
+
+        if (t == null) {
+            return null;
+        }
+        while (t.right != null) {
+            t = t.right;
+        }
+        return t;
     }
 
     /**
-     *
      * @param x
      * @param cur
      * @return
@@ -135,6 +166,7 @@ public class BST<T extends Comparable<? super T>> {
         int cmp = x.compareTo(cur.element);
         // 把最不可能的情况放在最后
         if (cmp < 0) {
+            // 这是递归连接
             cur.left = insert(x, cur.left);
         } else if (cmp > 0) {
             cur.right = insert(x, cur.right);
@@ -145,7 +177,30 @@ public class BST<T extends Comparable<? super T>> {
         return cur;
     }
 
-    private BSTNode<T> remove(T x, BSTNode<T> root) {
-        return null;
+    /**
+     * @param x
+     * @param t
+     * @return
+     */
+    private BSTNode<T> remove(T x, BSTNode<T> t) {
+        if (t == null) {
+            return null;
+        }
+        int cmp = x.compareTo(t.element);
+        if (cmp < 0) {
+            t.left = remove(x, t.left);
+        } else if (cmp > 0) {
+            t.right = remove(x, t.right);
+        } else {
+            if (t.left != null && t.right != null) {
+//                t.element = findMin(t.right).element;
+//                t.right = remove(t.element, t.right);
+                t.element = findMax(t.left).element;
+                t.left = remove(t.element, t.left);
+            } else {
+                t = (t.left != null) ? t.left : t.right;
+            }
+        }
+        return t;
     }
 }

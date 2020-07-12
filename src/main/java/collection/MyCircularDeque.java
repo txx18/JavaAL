@@ -1,7 +1,7 @@
 package collection;
 
 /**
- * TODO deleteLast OutOfMemoryError
+ * TODO toString OutOfMemoryError
  * @author Shane Tang
  * @create 2020-07-11 14:43
  */
@@ -19,18 +19,39 @@ public class MyCircularDeque {
      * boolean param_8 = obj.isFull();
      */
 
+    /*
+    * MyCircularDeque circularDeque = new MycircularDeque(3); // 设置容量大小为3
+circularDeque.insertLast(1);			        // 返回 true
+circularDeque.insertLast(2);			        // 返回 true
+circularDeque.insertFront(3);			        // 返回 true
+circularDeque.insertFront(4);			        // 已经满了，返回 false
+circularDeque.getRear();  				// 返回 2
+circularDeque.isFull();				        // 返回 true
+circularDeque.deleteLast();			        // 返回 true
+circularDeque.insertFront(4);			        // 返回 true
+circularDeque.getFront();				// 返回 4
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/design-circular-deque
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+*
+* [[4],[9],[],[],[],[],[],[6],[5],[9],[],[6]]
+* [null,true,true,-1,-1,-1,false,true,true,true,9,true]
+    * */
+
     public static void main(String[] args) {
-        MyCircularDeque myCircularDeque = new MyCircularDeque(4);
-        for (int i = 0; i < 5; i++) {
-            myCircularDeque.insertFront(i);
-//            System.out.println(myCircularDeque);
-        }
-        System.out.println("insertFront myCircularDeque = " + myCircularDeque);
-        for (int i = 0; i < 3; i++) {
-            myCircularDeque.deleteLast();
-//            System.out.println(myCircularDeque);
-        }
-        System.out.println("deleteLast myCircularDeque = " + myCircularDeque);
+        MyCircularDeque circularDeque = new MyCircularDeque(3); // 设置容量大小为3
+        System.out.println(circularDeque.insertLast(1));
+        System.out.println(circularDeque.insertLast(2));
+        System.out.println(circularDeque.insertFront(3));
+        System.out.println(circularDeque.insertFront(4));
+        System.out.println(circularDeque.getRear());
+        System.out.println(circularDeque.isFull());
+        System.out.println(circularDeque.deleteLast());
+        System.out.println("circularDeque = " + circularDeque);
+        System.out.println(circularDeque.insertFront(4));
+        System.out.println(circularDeque.getFront());
+
     }
 
 //    private T[] elements;
@@ -127,16 +148,24 @@ public class MyCircularDeque {
      * Get the front item from the deque.
      */
     public int getFront() {
-        if (front == elements.length - 1) {
-            front = moveToArrFront();
+        if (isEmpty()) {
+            return -1;
         }
-        return elements[front];
+        if (front == elements.length - 1) {
+            // get的时候不能移动front指针
+            return elements[0];
+        }else {
+            return elements[front + 1];
+        }
     }
 
     /**
      * Get the last item from the deque.
      */
     public int getRear() {
+        if (isEmpty()) {
+            return -1;
+        }
         return elements[rear];
     }
 
@@ -160,18 +189,22 @@ public class MyCircularDeque {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+//        StringBuffer sb = new StringBuffer();
+        String res = "";
         if (size() == 0) {
             return "null";
         }
-        for (int i = front + 1; i != rear; i++) {
-            if (i == elements.length) {
+        for (int i = front; i != rear; i++) {
+            if (i == elements.length - 1) {
                 i = moveToArrFront();
             }
-            sb.append(elements[i]).append(" ");
+//            sb.append(elements[i]).append(" ");
+            res += elements[i] + " ";
         }
-        sb.append(elements[rear]);
-        return sb.toString();
+//        sb.append(elements[rear]);
+        res += elements[rear];
+//        return sb.toString();
+        return res;
     }
 
     private int moveToArrRear() {
