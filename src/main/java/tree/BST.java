@@ -15,9 +15,21 @@ public class BST<T extends Comparable<? super T>> {
         root.right = new BSTNode<>(3);
 
         BST<Integer> bst = new BST<>();
+/*        for (int i = 0; i < 10; i++) {
+            int random = (int) (Math.random() * 10);
+            System.out.println("random = " + random);
+            bst.insert(random);
+        }*/
         for (int i = 0; i < 10; i++) {
             bst.insert(i);
         }
+/*        int[] phone = {1, 5, 1, 1, 6, 4, 3, 4, 9, 5, 7};
+        for (int num : phone) {
+            bst.insert(num);
+        }*/
+        bst.printTree();
+        System.out.println();
+        System.out.println("height = " + bst.height());
         System.out.println(bst.contains(3));
         System.out.println(bst.findMin());
         System.out.println(bst.findMax());
@@ -83,8 +95,20 @@ public class BST<T extends Comparable<? super T>> {
     }
 
     public void printTree() {
+        if (isEmpty()) {
+            System.out.println("Empty tree");
+        }
+        printTree(root);
 
     }
+
+    public int height() {
+        if (isEmpty()) {
+            return -1;
+        }
+        return height(root);
+    }
+
 
     /**************************私有实现***********************/
 
@@ -111,18 +135,18 @@ public class BST<T extends Comparable<? super T>> {
      * @return
      */
     private BSTNode<T> findMin(BSTNode<T> t) {
-/*        // （我）
-        if (cur.left != null) {
-            return findMin(cur.left);
+        // （我）
+        if (t.left != null) {
+            return findMin(t.left);
         }
-        return cur;*/
+        return t;
 
-        if (t == null) {
+/*        if (t == null) {
             return null;
         } else if (t.left == null) {
             return t;
         }
-        return findMin(t.left);
+        return findMin(t.left);*/
 
     }
 
@@ -133,48 +157,46 @@ public class BST<T extends Comparable<? super T>> {
      * @return
      */
     private BSTNode<T> findMax(BSTNode<T> t) {
-/*        while (t.right != null) {
+        while (t.right != null) {
             t = t.right;
         }
-        return t;*/
-/*        // 递归同理
-        if (t == null) {
+        return t;
+        // 递归同理
+/*        if (t == null) {
             return null;
         }else if (t.right == null) {
             return t;
         }
         return findMax(t.right);*/
 
-        if (t == null) {
+/*        if (t == null) {
             return null;
         }
         while (t.right != null) {
             t = t.right;
         }
-        return t;
+        return t;*/
     }
 
     /**
      * @param x
-     * @param cur
+     * @param t
      * @return
      */
-    private BSTNode<T> insert(T x, BSTNode<T> cur) {
-        if (cur == null) {
+    private BSTNode<T> insert(T x, BSTNode<T> t) {
+        if (t == null) {
             return new BSTNode<>(x);
         }
-        int cmp = x.compareTo(cur.element);
-        // 把最不可能的情况放在最后
+        int cmp = x.compareTo(t.element);
         if (cmp < 0) {
-            // 这是递归连接
-            cur.left = insert(x, cur.left);
+            t.left = insert(x, t.left);
         } else if (cmp > 0) {
-            cur.right = insert(x, cur.right);
+            t.right = insert(x, t.right);
         } else {
-            // do nothing
-//            cur.element = x;
+            ;
         }
-        return cur;
+        // 最终返回root
+        return t;
     }
 
     /**
@@ -184,7 +206,7 @@ public class BST<T extends Comparable<? super T>> {
      */
     private BSTNode<T> remove(T x, BSTNode<T> t) {
         if (t == null) {
-            return null;
+            return t;
         }
         int cmp = x.compareTo(t.element);
         if (cmp < 0) {
@@ -193,14 +215,36 @@ public class BST<T extends Comparable<? super T>> {
             t.right = remove(x, t.right);
         } else {
             if (t.left != null && t.right != null) {
-//                t.element = findMin(t.right).element;
-//                t.right = remove(t.element, t.right);
-                t.element = findMax(t.left).element;
-                t.left = remove(t.element, t.left);
+                t.element = findMin(t.right).element;
+                return remove(t.element, t.right);
             } else {
                 t = (t.left != null) ? t.left : t.right;
             }
         }
         return t;
+    }
+
+    private void printTree(BSTNode<T> x) {
+        if (x == null) {
+            return;
+        }
+        printTree(x.left);
+        System.out.print(x.element + " ");
+        printTree(x.right);
+    }
+
+    private int height(BSTNode<T> t) {
+        // （我）
+/*        if (t == null) {
+            return -1;
+        }
+        int lh = height(t.left) + 1;
+        int rh = height(t.right) + 1;
+        return Math.max(lh, rh);*/
+        // （书）
+        if (t == null) {
+            return -1;
+        }
+        return 1 + Math.max(height(t.left), height(t.right));
     }
 }

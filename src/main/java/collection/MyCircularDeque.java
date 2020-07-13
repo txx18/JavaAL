@@ -1,7 +1,7 @@
 package collection;
 
 /**
- * TODO toString OutOfMemoryError
+ *
  * @author Shane Tang
  * @create 2020-07-11 14:43
  */
@@ -187,6 +187,10 @@ circularDeque.getFront();				// 返回 4
         return size;
     }
 
+    /**
+     * TODO toString OutOfMemoryError
+     * @return
+     */
     @Override
     public String toString() {
 //        StringBuffer sb = new StringBuffer();
