@@ -10,33 +10,30 @@ package tree;
 public class BST<T extends Comparable<? super T>> {
 
     public static void main(String[] args) {
-        BSTNode<Integer> root = new BSTNode<>(1);
-        root.left = new BSTNode<>(2);
-        root.right = new BSTNode<>(3);
-
         BST<Integer> bst = new BST<>();
 /*        for (int i = 0; i < 10; i++) {
             int random = (int) (Math.random() * 10);
             System.out.println("random = " + random);
             bst.insert(random);
         }*/
-        for (int i = 0; i < 10; i++) {
+/*        for (int i = 0; i < 10; i++) {
             bst.insert(i);
-        }
-/*        int[] phone = {1, 5, 1, 1, 6, 4, 3, 4, 9, 5, 7};
+        }*/
+        int[] phone = {5, 3, 6, 2, 4, 7};
         for (int num : phone) {
             bst.insert(num);
-        }*/
-        bst.printTree();
-        System.out.println();
-        System.out.println("height = " + bst.height());
-        System.out.println(bst.contains(3));
-        System.out.println(bst.findMin());
+        }
+
+//        bst.printTree();
+//        System.out.println("height = " + bst.height());
+//        System.out.println(bst.contains(3));
+//        System.out.println(bst.findMin());
+//        System.out.println(bst.findMax());
+        bst.remove(3);
         System.out.println(bst.findMax());
-        bst.remove(bst.findMax());
     }
 
-    public BSTNode root;
+    public BSTNode<T> root;
 
     private static class BSTNode<T> {
         T element;
@@ -86,11 +83,13 @@ public class BST<T extends Comparable<? super T>> {
     }
 
     public void insert(T x) {
+//        BSTNode<T> cur = root;
         root = insert(x, root);
     }
 
 
     public void remove(T x) {
+//        BSTNode<T> cur = root;
         root = remove(x, root);
     }
 
@@ -99,7 +98,7 @@ public class BST<T extends Comparable<? super T>> {
             System.out.println("Empty tree");
         }
         printTree(root);
-
+        System.out.println();
     }
 
     public int height() {
@@ -143,7 +142,7 @@ public class BST<T extends Comparable<? super T>> {
 
 /*        if (t == null) {
             return null;
-        } else if (t.left == null) {
+        }else if (t.left == null) {
             return t;
         }
         return findMin(t.left);*/
@@ -205,23 +204,7 @@ public class BST<T extends Comparable<? super T>> {
      * @return
      */
     private BSTNode<T> remove(T x, BSTNode<T> t) {
-        if (t == null) {
-            return t;
-        }
-        int cmp = x.compareTo(t.element);
-        if (cmp < 0) {
-            t.left = remove(x, t.left);
-        } else if (cmp > 0) {
-            t.right = remove(x, t.right);
-        } else {
-            if (t.left != null && t.right != null) {
-                t.element = findMin(t.right).element;
-                return remove(t.element, t.right);
-            } else {
-                t = (t.left != null) ? t.left : t.right;
-            }
-        }
-        return t;
+        return null;
     }
 
     private void printTree(BSTNode<T> x) {
