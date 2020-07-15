@@ -39,6 +39,7 @@ public class SeparateChainingHashST<Key, Value> extends SimpleST<Key, Value> {
      * @return
      */
     private int hash(Key key) {
+        // & 0x7fffffff 与上整数的最大值 得到一个整数
         return (key.hashCode() & 0x7fffffff) % M;
     }
 
