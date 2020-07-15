@@ -184,14 +184,17 @@ public class BST<T extends Comparable<? super T>> {
      */
     private BSTNode<T> insert(T x, BSTNode<T> t) {
         if (t == null) {
+            // 到底返回新结点
             return new BSTNode<>(x);
         }
         int cmp = x.compareTo(t.element);
         if (cmp < 0) {
+            // 指针连接
             t.left = insert(x, t.left);
         } else if (cmp > 0) {
             t.right = insert(x, t.right);
         } else {
+            // do nothind
             ;
         }
         // 最终返回root
