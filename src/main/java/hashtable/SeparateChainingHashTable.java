@@ -52,10 +52,6 @@ public class SeparateChainingHashTable<T> {
      */
     private int size;
 
-    private void rehash() {
-
-    }
-
     public SeparateChainingHashTable() {
         this(DEFAULT_TABLE_SIZE);
     }
@@ -93,6 +89,26 @@ public class SeparateChainingHashTable<T> {
 
     public boolean contains(T x) {
         return lists[myhash(x)].contains(x);
+    }
+
+    /**
+     * 再散列
+     */
+    private void rehash() {
+        // 原来散列表
+        LinkedList<T>[] oldLists = lists;
+        // 建立两倍大的散列表
+        lists = new LinkedList[nextPrime(lists.length * 2)];
+        for (int i = 0; i < lists.length; i++) {
+            lists[i] = new LinkedList<>(); // 不是clear()
+        }
+        size = 0;
+        // 遍历原链表，把每一项重新散列
+        for (int i = 0; i < oldLists.length; i++) {
+            for (T t : oldLists[i]) {
+                insert(t); // insert()自带size++了
+            }
+        }
     }
 
     /**
