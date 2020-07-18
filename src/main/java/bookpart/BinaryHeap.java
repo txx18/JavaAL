@@ -147,9 +147,11 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>>
 
         for( ; hole * 2 <= currentSize; hole = child )
         {
+            //
             child = hole * 2;
             if( child != currentSize &&
                     array[ child + 1 ].compareTo( array[ child ] ) < 0 )
+                // 这里child变量先指代左后指代右
                 child++;
             if( array[ child ].compareTo( tmp ) < 0 )
                 array[ hole ] = array[ child ];
@@ -166,8 +168,14 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>>
         BinaryHeap<Integer> h = new BinaryHeap<>( );
         int i = 37;
 
-        for( i = 37; i != 0; i = ( i + 37 ) % numItems )
-            h.insert( i );
+//        for( i = 37; i != 0; i = ( i + 37 ) % numItems )
+//            h.insert( i );
+        Integer[] arr = new Integer[numItems];
+        int j = 0;
+        for (i = 37, j = 0; i != 0; i = (i + 37) % numItems){
+            arr[j++] = i;
+        }
+        h = new BinaryHeap<Integer>(arr);
         for( i = 1; i < numItems; i++ )
             if( h.deleteMin( ) != i )
                 System.out.println( "Oops! " + i );
