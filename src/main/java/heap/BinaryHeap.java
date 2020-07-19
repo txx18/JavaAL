@@ -105,6 +105,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
      * @param hole
      */
     private void swim(int hole) {
+        // 记住待插入元素
         T x = elements[hole];
         // 插入最小值时，hole 来到1位置，循环终止
         int fatherIndex = hole / 2;
@@ -146,11 +147,12 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     }
 
     /**
-     * 书上写法见book代码
+     * 书上写法见book代码（最优雅的写法）
      * sink() 空穴下滤，直到找到能放入【最后元素】的位置
      * @param hole
      */
     private void sink(int hole) {
+        // 记住待填入元素
         T x = elements[hole];
         int left = hole * 2;
         int right = left + 1;
