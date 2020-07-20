@@ -13,7 +13,7 @@ import static util.ArrayUtilsGeneric.*;
 public class ArrayTestHelperGeneric {
 
     private void solution(Integer[] arr) {
-        InsertionSort<Integer> obj = new InsertionSort<>();
+        ShellSort<Integer> obj = new ShellSort<>();
         obj.sort(arr);
     }
 
