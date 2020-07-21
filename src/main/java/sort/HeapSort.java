@@ -1,28 +1,25 @@
 package sort;
 
 /**
- * TODO Fuck
+ *
+ *
  * @author Shane Tang
  * @create 2020-07-21 23:37
  */
 public class HeapSort<T extends Comparable<? super T>> {
 
     public void sort(T[] a) {
-        // 如果是升序排列，必须构造大根堆，因为heapSize只能从右边减1，右边是放大的
-        // 堆化，构造大根堆
-        int heapSize = a.length;
+        // 如果是升序排列，必须构造【大根堆】，因为heapSize只能从右边减1，右边放大的
+        // 堆化过程，构造大根堆
         for (int i = a.length / 2 - 1; i >= 0; i--) {
             sink(a, i, a.length);
         }
-        // 排序
+        // 排序过程
         for (int i = a.length - 1; i > 0; i--) {
             // 最大的放到尾
             swap(a, 0, i);
-            // 减小堆，继续堆化
-            heapSize--;
-                a[0] = a[heapSize - 1];
-
-            sink(a, 0, heapSize);
+            // 交换过后实质上减小堆了，继续堆化
+            sink(a, 0, i);
         }
     }
 
@@ -32,6 +29,12 @@ public class HeapSort<T extends Comparable<? super T>> {
         a[j] = t;
     }
 
+    /**
+     *
+     * @param elements
+     * @param hole
+     * @param heapSize 堆排序是利用本身数组，heapSize会变化
+     */
     private void sink(T[] elements, int hole, int heapSize) {
         // 记住待填入元素（放在0位置）
         T x = elements[hole];

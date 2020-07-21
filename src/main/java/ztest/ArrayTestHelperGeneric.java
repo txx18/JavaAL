@@ -1,8 +1,10 @@
-package sort;
+package ztest;
+
+import sort.HeapSort;
 
 import java.util.Arrays;
 
-import static sort.ArrayUtilsGeneric.*;
+import static ztest.ArrayUtilsGeneric.*;
 
 /**
  * 对数器
