@@ -2,7 +2,7 @@ package sort;
 
 import java.util.Arrays;
 
-import static util.ArrayUtilsGeneric.*;
+import static sort.ArrayUtilsGeneric.*;
 
 /**
  * 对数器
@@ -13,7 +13,7 @@ import static util.ArrayUtilsGeneric.*;
 public class ArrayTestHelperGeneric {
 
     private void solution(Integer[] arr) {
-        ShellSort<Integer> obj = new ShellSort<>();
+        HeapSort<Integer> obj = new HeapSort<>();
         obj.sort(arr);
     }
 

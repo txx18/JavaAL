@@ -4,7 +4,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * 二叉堆（一棵完全二叉树，用数组表示）
- *
+ * 底层数组从1位置开始
  * @author Shane Tang
  * @create 2020-07-16 16:56
  */
@@ -148,11 +148,14 @@ public class BinaryHeap<T extends Comparable<? super T>> {
 
     /**
      * 书上写法见book代码（最优雅的写法）
-     * sink() 空穴下滤，直到找到能放入【最后元素】的位置
+     * sink() 空穴下滤，
+     * 堆化时，找到能放依次遍历的值的位置
+     * remove后，直到找到能放入【最后元素】的位置
+     *
      * @param hole
      */
     private void sink(int hole) {
-        // 记住待填入元素
+        // 记住待填入元素（放在1位置）
         T x = elements[hole];
         int left = hole * 2;
         int right = left + 1;
@@ -208,6 +211,10 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         }
     }
 
+    /**
+     * 【注意】堆打印底层数组当然不是有序的，要画成堆的样子
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
