@@ -103,6 +103,7 @@ public class MyPriorityQueue<T extends Comparable<? super T>> {
     private void sink(int hole) {
         // 记住待填入元素
         T x = elements[hole];
+        // 底层数组从0位置开始
         int left = hole * 2 + 1;
         int right = left + 1;
         while (true) {

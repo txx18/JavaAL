@@ -1,6 +1,8 @@
 package tree;
 
 
+import se.BinarySearchTree;
+
 /**
  * 二叉树查找
  *
@@ -9,28 +11,59 @@ package tree;
  */
 public class BST<T extends Comparable<? super T>> {
 
-    public static void main(String[] args) {
-        BST<Integer> bst = new BST<>();
-/*        for (int i = 0; i < 10; i++) {
-            int random = (int) (Math.random() * 10);
-            System.out.println("random = " + random);
-            bst.insert(random);
-        }*/
-/*        for (int i = 0; i < 10; i++) {
-            bst.insert(i);
-        }*/
-        int[] phone = {5, 3, 6, 2, 4, 7};
-        for (int num : phone) {
-            bst.insert(num);
-        }
-
-//        bst.printTree();
-//        System.out.println("height = " + bst.height());
-//        System.out.println(bst.contains(3));
-//        System.out.println(bst.findMin());
+//    public static void main(String[] args) {
+//        BST<Integer> bst = new BST<>();
+///*        for (int i = 0; i < 10; i++) {
+//            int random = (int) (Math.random() * 10);
+//            System.out.println("random = " + random);
+//            bst.insert(random);
+//        }*/
+///*        for (int i = 0; i < 10; i++) {
+//            bst.insert(i);
+//        }*/
+//        int[] phone = {5, 3, 6, 2, 4, 7};
+//        for (int num : phone) {
+//            bst.insert(num);
+//        }
+//
+////        bst.printTree();
+////        System.out.println("height = " + bst.height());
+////        System.out.println(bst.contains(3));
+////        System.out.println(bst.findMin());
+////        System.out.println(bst.findMax());
+//        bst.remove(3);
 //        System.out.println(bst.findMax());
-        bst.remove(3);
-        System.out.println(bst.findMax());
+//    }
+
+    // Test program
+    public static void main( String [ ] args )
+    {
+        BST<Integer> t = new BST<>( );
+        final int NUMS = 4000;
+        final int GAP  =   37;
+
+        System.out.println( "Checking... (no more output means success)" );
+
+        for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
+            t.insert( i );
+
+        for( int i = 1; i < NUMS; i+= 2 )
+            t.remove( i );
+
+        if( NUMS < 40 )
+            t.printTree( );
+        if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
+            System.out.println( "FindMin or FindMax error!" );
+
+        for( int i = 2; i < NUMS; i+=2 )
+            if( !t.contains( i ) )
+                System.out.println( "Find error1!" );
+
+        for( int i = 1; i < NUMS; i+=2 )
+        {
+            if( t.contains( i ) )
+                System.out.println( "Find error2!" );
+        }
     }
 
     public BSTNode<T> root;
@@ -134,19 +167,18 @@ public class BST<T extends Comparable<? super T>> {
      * @return
      */
     private BSTNode<T> findMin(BSTNode<T> t) {
-        // （我）
+/*        // （我）
         if (t.left != null) {
             return findMin(t.left);
         }
-        return t;
+        return t;*/
 
-/*        if (t == null) {
+        if (t == null) {
             return null;
         }else if (t.left == null) {
             return t;
         }
-        return findMin(t.left);*/
-
+        return findMin(t.left);
     }
 
     /**
@@ -207,7 +239,42 @@ public class BST<T extends Comparable<? super T>> {
      * @return
      */
     private BSTNode<T> remove(T x, BSTNode<T> t) {
-        return null;
+/*        if(root == null) {
+            return null;
+        }
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        }else if(key > root.val) {
+            root.right = deleteNode(root.right, key);
+        }else {
+            if(root.left != null && root.right != null) {
+                TreeNode cur = root.right;
+                while(cur.left != null) {
+                    cur = cur.left;
+                }
+                root.val = cur.val;
+                root.right = deleteNode(root.right, root.val);
+            }else {
+                root = (root.left != null) ? root.left: root.right;
+            }
+        }
+        return root;*/
+        if (root == null) {
+            return null;
+        }
+        if (x.compareTo(t.element) < 0) {
+            t.left = remove(x, t.left);
+        } else if (x.compareTo(t.element) > 0) {
+            t.right = remove(x, t.right);
+        } else {
+            if (t.left != null && t.right != null) {
+                t.element = findMin(t.right).element;
+                t.right = remove(t.element, t.right);
+            } else {
+                t = (t.left != null) ? t.left : t.right;
+            }
+        }
+        return t;
     }
 
     private void printTree(BSTNode<T> x) {

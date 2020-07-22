@@ -2,7 +2,6 @@ package hashtable;
 
 /**
  * 平方探测法
- * TODO 还是有错误
  *
  * @author Shane Tang
  * @create 2020-07-15 22:44
@@ -146,9 +145,6 @@ public class QuadraticProbingHashTable<T> {
                 index += offset;
                 offset += 2;
                 if (index >= entries.length) {
-                    if(index == 202) {
-                        System.out.println("offset = " + offset);
-                    }
                     index -= entries.length;
 
                 }
@@ -172,7 +168,8 @@ public class QuadraticProbingHashTable<T> {
         size = 0;
         // 遍历原散列表
         for (int i = 0; i < oldEntries.length; i++) {
-            if (isActive(i)) {
+//            if (isActive(i)) { // 不能用isActive（isActive看的是entries而不是oldEntries）
+            if (oldEntries[i] != null && oldEntries[i].isActive) {
                 insert(oldEntries[i].element);
             }
         }
@@ -185,16 +182,12 @@ public class QuadraticProbingHashTable<T> {
      * @return
      */
     private int myhash(T x) {
-        /*return (x.hashCode() & 0x7fffffff) % entries.length;*/
-        int hashVal = x.hashCode();
-        if (hashVal == 1573953) {
-            System.out.println(x);
-        }
+        return (x.hashCode() & 0x7fffffff) % entries.length;
+/*        int hashVal = x.hashCode();
         hashVal %= entries.length;
         if (hashVal < 0)
             hashVal += entries.length;
-
-        return hashVal;
+        return hashVal;*/
     }
 
     /**
