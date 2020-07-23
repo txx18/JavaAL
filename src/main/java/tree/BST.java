@@ -1,8 +1,6 @@
 package tree;
 
 
-import se.BinarySearchTree;
-
 /**
  * 二叉树查找
  *

@@ -101,7 +101,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
 
     /**
      * swim() 空穴hole上滤，直到找到能放【插入元素】的位置
-     * 调整堆
+     * 调整小根堆
      * @param hole
      */
     private void swim(int hole) {

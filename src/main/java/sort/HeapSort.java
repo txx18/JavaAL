@@ -10,7 +10,7 @@ public class HeapSort<T extends Comparable<? super T>> {
 
     public void sort(T[] a) {
         // 如果是升序排列，必须构造【大根堆】，因为heapSize只能从右边减1，右边放大的
-        // 堆化过程，构造大根堆
+        // 第一次堆化过程，构造大根堆
         for (int i = a.length / 2 - 1; i >= 0; i--) {
             sink(a, i, a.length);
         }
@@ -36,6 +36,22 @@ public class HeapSort<T extends Comparable<? super T>> {
      * @param heapSize 堆排序是利用本身数组，heapSize会变化
      */
     private void sink(T[] elements, int hole, int heapSize) {
+        int child;
+        T x = elements[hole];
+        while (2 * hole + 1 < heapSize) {
+            child = 2 * hole + 1;
+            if (child != heapSize - 1 && elements[child].compareTo(elements[child + 1]) < 0) {
+                child++;
+            }
+            if (x.compareTo(elements[child]) < 0) {
+                elements[hole] = elements[child];
+            }
+            else {
+                break;
+            }
+            hole = child;
+        }
+        elements[hole] = x;
         // （我）
 /*        // 记住待填入元素（放在0位置）
         T x = elements[hole];
@@ -73,21 +89,6 @@ public class HeapSort<T extends Comparable<? super T>> {
             }
         }
         elements[hole] = x;*/
-        int child;
-        T x = elements[hole];
-        while (2 * hole + 1 < heapSize) {
-            child = 2 * hole + 1;
-            if (child != heapSize - 1 && elements[child].compareTo(elements[child + 1]) < 0) {
-                child++;
-            }
-            if (x.compareTo(elements[child]) < 0) {
-                elements[hole] = elements[child];
-            }
-            else {
-                break;
-            }
-            hole = child;
-        }
-        elements[hole] = x;
+
     }
 }
