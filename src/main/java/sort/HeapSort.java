@@ -9,17 +9,28 @@ package sort;
 public class HeapSort<T extends Comparable<? super T>> {
 
     public void sort(T[] a) {
+        if (a == null || a.length < 2) {
+            return;
+        }
         // 如果是升序排列，必须构造【大根堆】，因为heapSize只能从右边减1，右边放大的
         // 第一次堆化过程，构造大根堆
         for (int i = a.length / 2 - 1; i >= 0; i--) {
             sink(a, i, a.length);
         }
         // 排序过程
-        for (int i = a.length - 1; i > 0; i--) {
+/*        for (int i = a.length - 1; i > 0; i--) {
             // 最大的放到尾
             swap(a, 0, i);
             // 交换过后实质上减小堆了，继续堆化
             sink(a, 0, i);
+        }*/
+        int heapSize = a.length;
+        swap(a, 0, heapSize - 1);
+        heapSize--;
+        while (heapSize > 0) {
+            sink(a, 0, heapSize);
+            swap(a, 0, heapSize - 1);
+            heapSize--;
         }
     }
 

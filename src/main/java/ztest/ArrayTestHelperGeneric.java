@@ -1,6 +1,7 @@
 package ztest;
 
 import sort.HeapSort;
+import sort.MergeSort;
 
 import java.util.Arrays;
 
@@ -15,7 +16,7 @@ import static ztest.ArrayUtilsGeneric.*;
 public class ArrayTestHelperGeneric {
 
     private void solution(Integer[] arr) {
-        HeapSort<Integer> obj = new HeapSort<>();
+        MergeSort<Integer> obj = new MergeSort<>();
         obj.sort(arr);
     }
 
@@ -39,10 +40,21 @@ public class ArrayTestHelperGeneric {
 //            System.out.print("generate  ：");
 //            printArray(arr1);
 //            System.out.println("---------------------------------------------");
-            test.solution(arr1);
+            try {
+                test.solution(arr1);
+            }catch (Exception e) {
+                e.printStackTrace();
+                System.out.print("生成：");
+                printArray(arr2);
+                System.out.println("---------------------------------------------");
+                return;
+            }
             test.comparator(arr2);
             if (!isEqual(arr1, arr2)) {
                 succeed = false;
+                System.out.print("生成：");
+                printArray(arr1);
+                System.out.println("---------------------------------------------");
                 System.out.print("测试：");
                 printArray(arr1);
                 System.out.println("---------------------------------------------");
@@ -60,7 +72,7 @@ public class ArrayTestHelperGeneric {
             printArray(arr);
             System.out.println("---------------------------------------------");
             test.solution(arr);
-            System.out.print("测试：");
+            System.out.print("测试&对照：");
             printArray(arr);
         }
         long endTime = System.currentTimeMillis();
