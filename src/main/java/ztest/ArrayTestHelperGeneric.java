@@ -2,6 +2,7 @@ package ztest;
 
 import sort.HeapSort;
 import sort.MergeSort;
+import sort.QuickSort;
 
 import java.util.Arrays;
 
@@ -16,8 +17,9 @@ import static ztest.ArrayUtilsGeneric.*;
 public class ArrayTestHelperGeneric {
 
     private void solution(Integer[] arr) {
-        MergeSort<Integer> obj = new MergeSort<>();
-        obj.sort(arr);
+//        MergeSort<Integer> obj = new MergeSort<>();
+//        obj.sort(arr);
+        QuickSort.sort(arr);
     }
 
     // for test
